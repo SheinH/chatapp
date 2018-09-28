@@ -43,15 +43,20 @@ bool handleInput(){
 	return false;
 }
 bool displayMessage(){
-	messages[messageLen] = '\0';
+	static int currentLine;
 	if(strcmp(messages,"quit") == 0)
 		return true;
-	static int currentLine;
+	if(currentLine == 0){
+		erase();
+	}
+	messages[messageLen] = '\0';
 	time_t rt = time(NULL);
 	struct tm *lt = localtime(&rt);
-	mvprintw(currentLine, 0, "%s (%d:%d): %s", usernames[currentUser], lt->tm_hour % 12, lt->tm_min, messages);
+	mvprintw(currentLine, 0, "%s (%d:%.2d): %s", usernames[currentUser], lt->tm_hour % 12, lt->tm_min, messages);
 	currentLine++;
-	currentLine = currentLine % (maxY - 1);	
+	if(currentLine == maxY - 1){
+		currentLine = 0;
+	}
 	messageLen = 0;
 	move(maxY - 1,0);
 	for(int i = 0; i < maxX; i++)
@@ -69,9 +74,10 @@ int main()
 	getmaxyx(stdscr, maxY, maxX);
 	move(maxY-1,0);
 	switchUser();
+	switchUser();
 	//strcpy(messages, "HELLO");
 	//displayMessage();
-	bool exit;
+	bool exit = false;
 	while(!exit){
 		exit = handleInput();
 	}
