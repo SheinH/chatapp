@@ -1,6 +1,6 @@
 # Chat App
 
-This is a ncurses based chat app that I banged out on my keyboard in an hour and a half. I made this mostly so I can chat with people while I am teamviewering them. It can only be used by two users typing on the same computer with the same keyboard and currently, it is hard coded to support two users named Shein and Victoria.
+This is a CLI chat app that I banged out on my keyboard in an hour and a half. I made this mostly so I can chat with people while I am teamviewering them. It can only be used by two users typing on the same computer with the same keyboard and currently, it is hard coded to support two users named Shein and Victoria.
 
 ![Wow, isn't this app cool???](https://i.imgur.com/20miiKJ.png)
 
