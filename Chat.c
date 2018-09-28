@@ -1,6 +1,7 @@
 #include <curses.h>
 #include <time.h>
 #include <string.h>
+#include <stdbool.h>
 
 char *usernames[] = { "Shein", "Victoria"};
 char messages[200];
@@ -44,12 +45,12 @@ bool handleInput(){
 }
 bool displayMessage(){
 	static int currentLine;
+	messages[messageLen] = '\0';
 	if(strcmp(messages,"quit") == 0)
 		return true;
 	if(currentLine == 0){
 		erase();
 	}
-	messages[messageLen] = '\0';
 	time_t rt = time(NULL);
 	struct tm *lt = localtime(&rt);
 	mvprintw(currentLine, 0, "%s (%d:%.2d): %s", usernames[currentUser], lt->tm_hour % 12, lt->tm_min, messages);
