@@ -6,7 +6,7 @@ This is a ncurses based chat app that I banged out on my keyboard in an hour and
 
 ## Compilation
 
-This program is manually compiled and requires some implementation of curses.h. If your computer has ncurses and uses cc to compile C code, you may compile with any c compiler using "cc Chat.c -lncurses" as an example.
+This program is manually compiled and requires some implementation of curses.h. If your computer has ncurses and uses cc to compile C code, you may compile with the command c compiler using `cc Chat.c -lncurses` as an example.
 
 ## How to use:
 
