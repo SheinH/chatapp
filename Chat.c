@@ -8,7 +8,7 @@ int messageLen;
 int numUsers = 2;
 int currentUser = 0;
 int maxY, maxX;
-void displayMessage();
+bool displayMessage();
 int getCursorPos(){
 	return maxX - strlen(usernames[currentUser]) - 2;
 }
@@ -26,23 +26,26 @@ void switchUser(){
 	attroff(A_STANDOUT);
 	move(oldx,oldy);
 }
-void handleInput(){
+bool handleInput(){
+	int y, x;
+	getyx(stdscr, y, x);
 	int ch = getch();
 	if(ch == '\n'){
-		displayMessage();
+		return displayMessage();
 	}
 	else if(ch == '\t'){
-		int x, y;
-		getyx(stdscr,y,x);
-		move(y,x-5);
+		move(y,x);
 		switchUser();
 	}
 	else{
 		messages[messageLen++] = ch;
 	}
+	return false;
 }
-void displayMessage(){
+bool displayMessage(){
 	messages[messageLen] = '\0';
+	if(strcmp(messages,"quit") == 0)
+		return true;
 	static int currentLine;
 	time_t rt = time(NULL);
 	struct tm *lt = localtime(&rt);
@@ -56,6 +59,7 @@ void displayMessage(){
 	switchUser();
 	switchUser();
 	move(maxY - 1,0);
+	return false;
 }
 int main()
 {	
@@ -67,10 +71,10 @@ int main()
 	switchUser();
 	//strcpy(messages, "HELLO");
 	//displayMessage();
-	for(int i = 0; i < 10; i++)
-		handleInput();
-	displayMessage();
-	getch();
+	bool exit;
+	while(!exit){
+		exit = handleInput();
+	}
 	endwin();			/* End curses mode		  */
 	printf("%s", messages);
 	return 0;
